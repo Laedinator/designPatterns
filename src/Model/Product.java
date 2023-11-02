@@ -7,13 +7,12 @@ package Model;
  * Defines the product
  **/
 
-public class Product {
+public abstract class Product {
     private static int productAmount = 0;
     private int productId = 0;
     private String name = "";
     private String description = "";
     private double price = 0;
-    private String category = "";
     private boolean bulkOrders = false;
 
     public Product() {
@@ -34,11 +33,6 @@ public class Product {
 
     public Product withPrice(double price) {
         this.price = price;
-        return this;
-    }
-
-    public Product withCategory(String category) {
-        this.category = category;
         return this;
     }
 
@@ -65,19 +59,20 @@ public class Product {
         return price;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
     public boolean isBulkOrders() {
         return bulkOrders;
     }
+
+
+    public abstract String getType();
+
 
     //endregion
 
     @Override
     public String toString() {
-        return String.format("id: %d, name: %s, description %s, price: %s, category: %s, bulkOrders: %s",
-                this.productId, this.name, this.description, this.price, this.category, this.bulkOrders);
+        return String.format("id: %d, name: %s, description %s, price: %s, type: %s, bulkOrders: %s",
+                this.productId, this.name, this.description, this.price, this.getType(), this.bulkOrders);
     }
+
 }
