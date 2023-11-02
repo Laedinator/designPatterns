@@ -14,6 +14,7 @@ public abstract class Product {
     private String description = "";
     private double price = 0;
     private boolean bulkOrders = false;
+    private int amount;
 
     public Product() {
         productAmount++;
@@ -63,11 +64,25 @@ public abstract class Product {
         return bulkOrders;
     }
 
-
     public abstract String getType();
 
+    public void getAmount() {
+        System.out.printf("Available %s: %d", getName(), amount);
+    }
 
     //endregion
+
+
+    public void addAmount() {
+        amount++;
+        System.out.println(amount);
+    }
+
+    public void decreaseAmount() {
+        amount--;
+        System.out.println(amount);
+    }
+
 
     @Override
     public String toString() {
