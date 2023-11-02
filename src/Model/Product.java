@@ -6,6 +6,7 @@ package Model;
  * Purpose of the program:
  * Defines the product
  **/
+
 public class Product {
     private static int productAmount = 0;
     private int productId = 0;
@@ -20,6 +21,7 @@ public class Product {
         this.productId += productAmount;
     }
 
+    //region Builder with functions
     public Product withName(String name) {
         this.name = name;
         return this;
@@ -44,7 +46,9 @@ public class Product {
         this.bulkOrders = bulkOrders;
         return this;
     }
+    //endregion
 
+    //region Getters
     public String getName() {
         return name;
     }
@@ -69,6 +73,7 @@ public class Product {
         return bulkOrders;
     }
 
+    //endregion
 
     @Override
     public String toString() {
