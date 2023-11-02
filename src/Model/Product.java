@@ -7,49 +7,72 @@ package Model;
  * Defines the product
  **/
 public class Product {
-    private long productId;
-    private String Name;
-    private int price;
-    private String category;
-    private boolean bulkOrders;
+    private static int productAmount = 0;
+    private int productId = 0;
+    private String name = "";
+    private String description = "";
+    private double price = 0;
+    private String category = "";
+    private boolean bulkOrders = false;
 
-    public Product(long productId, String name, int price, String category, boolean bulkOrders) {
-        this.productId = productId;
-        Name = name;
+    public Product() {
+        productAmount++;
+        this.productId += productAmount;
+    }
+
+    public Product withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Product withDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public Product withPrice(double price) {
         this.price = price;
+        return this;
+    }
+
+    public Product withCategory(String category) {
         this.category = category;
+        return this;
+    }
+
+    public Product withBulkorders(boolean bulkOrders) {
         this.bulkOrders = bulkOrders;
+        return this;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public int getProductId() {
+        return productId;
     }
 
-    public int getPrice() {
+    public String getDescription() {
+        return description;
+    }
+
+    public double getPrice() {
         return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     public String getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public boolean isBulkOrders() {
         return bulkOrders;
     }
 
-    public void setBulkOrders(boolean bulkOrders) {
-        this.bulkOrders = bulkOrders;
+
+    @Override
+    public String toString() {
+        return String.format("id: %d, name: %s, description %s, price: %s, category: %s, bulkOrders: %s",
+                this.productId, this.name, this.description, this.price, this.category, this.bulkOrders);
     }
 }
