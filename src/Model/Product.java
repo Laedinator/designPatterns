@@ -86,7 +86,7 @@ public abstract class Product {
 
     @Override
     public String toString() {
-        return String.format("id: %d, name: %s, description %s, price: %s, type: %s, bulkOrders: %s",
+        return String.format("id: %d, name: %s, description: %s, price: %s, type: %s, bulkOrders: %s",
                 this.productId, this.name, this.description, this.price, this.getType(), this.bulkOrders);
     }
 

@@ -3,8 +3,6 @@ package Controller;
 import Model.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * @author Marc Ledermann
@@ -14,19 +12,19 @@ import java.util.List;
 public class DesignPatternLauncher {
     public static void main(String[] args) {
 
+        System.out.println("Launching DesignPattern webshop.\n");
         //region Builder
-//        System.out.println("Launching DesignPattern webshop.\n");
-//        System.out.println("Product List with builder constructors.");
-//        ArrayList<Product> products = new ArrayList<>();
-//        Product product1 = new Ball().withName("Football").withDescription("A round football")
-//                .withPrice(19.99).withBulkorders(true);
-//        Product product2 = new Ball().withName("Basketball").withDescription("A round basketball")
-//                .withPrice(19.99).withBulkorders(true);
-//        Product product3 = new Ball().withName("Football").withDescription("A round football with red dots")
-//                .withPrice(29.99).withBulkorders(true);
-//        products.add(product1);
-//        products.add(product2);
-//        products.add(product3);
+        System.out.println("Creating a Product List with builder constructors.\n");
+        ArrayList<Product> products = new ArrayList<>();
+        Product product1 = new Ball().withName("Football ").withDescription("A round football")
+                .withPrice(19.99).withBulkorders(true);
+        Product product2 = new Surfboard().withName("surfboard").withDescription("A small funboard")
+                .withPrice(199.99).withBulkorders(false);
+        Product product3 = new Ball().withName("Football").withDescription("A round football with red dots")
+                .withPrice(29.99).withBulkorders(true);
+        products.add(product1);
+        products.add(product2);
+        products.add(product3);
 
 //        for (Product product : products) {
 //            System.out.println(product.toString());
@@ -73,18 +71,50 @@ public class DesignPatternLauncher {
 //        System.out.println(skateboard);
         //endregion
 
-        Product product = new Ball().withName("Nike Football").withDescription("A round, expensive Football").withPrice(99);
-        BuyProduct buyProduct = new BuyProduct(product);
-        SellProduct sellProduct = new SellProduct(product);
+        //region Command Structure
+//        Product product = new Ball().withName("Nike Football").withDescription("A round, expensive Football").withPrice(99);
+//        BuyProduct buyProduct = new BuyProduct(product);
+//        SellProduct sellProduct = new SellProduct(product);
+//
+//        ShoppingCart shoppingCart = ShoppingCart.getInstance();
+//        shoppingCart.addOrder(buyProduct);
+//        shoppingCart.addOrder(buyProduct);
+//        shoppingCart.addOrder(buyProduct);
+//        shoppingCart.addOrder(sellProduct);
+//        shoppingCart.placeOrders();
+//
+//        product.getAmount();
 
-        ShoppingCart shoppingCart = ShoppingCart.getInstance();
-        shoppingCart.addOrder(buyProduct);
-        shoppingCart.addOrder(buyProduct);
-        shoppingCart.addOrder(buyProduct);
-        shoppingCart.addOrder(sellProduct);
-        shoppingCart.placeOrders();
+        //endregion
 
-        product.getAmount();
+        //region Filter pattern
+        // create filterchaining
+
+        AbstractFilter stringFilter = new ContainsSpaceFilter();
+        AbstractFilter capitalLetterFilter = new BeginsWithCapitalLetterFilter();
+        AbstractFilter expensiveFilter = new IsExpensiveFilter();
+
+        stringFilter.setNextFilter(capitalLetterFilter);
+        capitalLetterFilter.setNextFilter(expensiveFilter);
+
+
+        //runs the filter checks and updates the objects in the array with the updated version.
+        System.out.println("Printing the objects BEFORE updating them according to the filter checks.");
+        System.out.println("After the filter runs through it, replace them.");
+        for (int index = 0; index < products.size(); index++) {
+            System.out.println(products.get(index));
+            products.set(index, stringFilter.checkFilter(products.get(index)));
+            System.out.println();
+        }
+
+
+        System.out.println("printing the updated Objects from the same list.\n");
+        for (Product product : products) {
+            System.out.println(product);
+            System.out.println();
+        }
+
+        //endregion
 
     }
 }
